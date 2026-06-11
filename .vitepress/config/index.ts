@@ -4,7 +4,6 @@ import { shared } from './shared';
 import { zh } from './zh';
 
 export default defineConfig({
-  base: '/rsshub-docs/',
   ...shared,
   locales: {
     root: { label: 'English', lang: 'en' },

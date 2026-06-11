@@ -22,7 +22,10 @@ const telegramLogo = `
 </svg>
 `;
 
+const baseUrl = '/rsshub-docs/';
+
 export const shared = defineConfig({
+  base: baseUrl,
   title: 'RSSHub',
   description: 'Everything is RSSible 🧡',
   srcDir: 'src',
@@ -52,7 +55,7 @@ export const shared = defineConfig({
     ['meta', { property: 'twitter:card', content: 'summary_large_image' }],
     ['link', { rel: 'dns-prefetch', href: 'https://icons.folo.is' }],
     ['link', { rel: 'preconnect', href: 'https://icons.folo.is' }],
-    ['link', { rel: 'shortcut icon', href: '/favicon.ico' }],
+    ['link', { rel: 'shortcut icon', href: `${baseUrl}favicon.ico` }],
     [
       'script',
       {
@@ -64,7 +67,7 @@ export const shared = defineConfig({
   ],
 
   themeConfig: {
-    logo: '/logo.png',
+    logo: `${baseUrl}logo.png`,
     outline: {
       level: [2, 3],
     },
