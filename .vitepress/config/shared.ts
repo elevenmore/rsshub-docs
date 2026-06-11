@@ -67,7 +67,7 @@ export const shared = defineConfig({
   ],
 
   themeConfig: {
-    logo: `${baseUrl}logo.png`,
+    logo: '/logo.png',
     outline: {
       level: [2, 3],
     },
