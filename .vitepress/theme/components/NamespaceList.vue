@@ -81,6 +81,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue';
+import { withBase } from 'vitepress';
 
 import { useLocale } from '../composables/useLocale';
 
@@ -290,7 +291,7 @@ const visibleNamespaces = computed(() => {
 });
 
 function getNamespaceLink(id: string) {
-  return `${localePath.value}/routes/${id}`;
+  return withBase(`${localePath.value}/routes/${id}`);
 }
 
 function getLocalizedName(ns: NamespaceData) {
