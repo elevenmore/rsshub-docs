@@ -192,7 +192,7 @@ onBeforeUnmount(() => {
 
 onMounted(async () => {
   try {
-    const [routesRes, categoriesRes] = await Promise.all([fetch('/routes.json'), fetch('/categories.json')]);
+    const [routesRes, categoriesRes] = await Promise.all([fetch(`${import.meta.env.BASE_URL}routes.json`), fetch(`${import.meta.env.BASE_URL}categories.json`)]);
     const routesData = await routesRes.json();
     const categoriesData = await categoriesRes.json();
 
