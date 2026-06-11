@@ -1,9 +1,7 @@
 name: CI
 on:
   push:
-    branches: ['main']
-  pull_request:
-    branches: ['main']
+    branches: ['dev']
 
 permissions:
   contents: read
@@ -26,16 +24,34 @@ jobs:
         run: pnpm i
       - name: Build docs
         run: pnpm run docs:build
-
-  automerge:
-    if: github.triggering_actor == 'dependabot[bot]' && github.event_name == 'pull_request'
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-dist
+          path: ./.vitepress/dist
+          retention-days: 1
+  deploy:
     needs: build
     runs-on: ubuntu-latest
     permissions:
-      pull-requests: write
-      contents: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: fastify/github-action-merge-dependabot@v3
+      - name: Download artifact
+        uses: actions/download-artifact@v4
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          target: minor
+          name: docs-dist
+          path: dist
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload to Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+  
